@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: studio
+      POSTGRES_PASSWORD: studio
+      POSTGRES_DB: studio
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: studio
+      MINIO_ROOT_PASSWORD: studio123
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["minio-data:/data"]
+
+volumes:
+  pgdata:
+  minio-data:
